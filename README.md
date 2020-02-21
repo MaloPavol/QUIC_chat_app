@@ -6,7 +6,7 @@ This project is a side product of my master degree studies of Software Design an
 This project uses the [aioquic](https://github.com/aiortc/aioquic) library which is released under the [BSD license](https://aioquic.readthedocs.io/en/latest/license.html) .
 
 ## Basic concept
-![](images/sequence_diagram.png)
+![](images/sequence_diagram.png | width=460px)
 
 ## Prerequisites
 Python 3.6 and OpenSSL: 
@@ -43,7 +43,7 @@ $ sudo tcpdump -i lo port 4433 -w quic.pcap
 ```
 and viewing the packages collected in Wireshark: 
 
-![](images/wireshark.png)
+![](images/wireshark.PNG)
 
 
 ## Licence
