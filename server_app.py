@@ -41,6 +41,7 @@ async def ws(websocket):
     try:
         while True:
             message = await websocket.receive_text()
+            print("Received: " + message)
 
             for connection in list_of_connections:
 
