@@ -8,8 +8,6 @@ This project uses the [aioquic](https://github.com/aiortc/aioquic) library which
 ## Basic concept
 Die runtime of the app can be described with the following simplified sequence diagram:
 
-![](images/sequence_diagram.png | width=460)
-
 <img src="images/sequence_diagram.png" width="460">
 
 
