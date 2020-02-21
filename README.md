@@ -6,7 +6,9 @@ This project is a side product of my master degree studies of Software Design an
 This project uses the [aioquic](https://github.com/aiortc/aioquic) library which is released under the [BSD license](https://aioquic.readthedocs.io/en/latest/license.html) .
 
 ## Basic concept
-![](images/sequence_diagram.png | width=460px)
+Die runtime of the app can be described with the following simplified sequence diagram:
+
+![](images/sequence_diagram.png | width=460)
 
 ## Prerequisites
 Python 3.6 and OpenSSL: 
