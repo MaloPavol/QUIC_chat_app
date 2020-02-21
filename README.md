@@ -10,6 +10,9 @@ Die runtime of the app can be described with the following simplified sequence d
 
 ![](images/sequence_diagram.png | width=460)
 
+<img src="images/sequence_diagram.png" width="460">
+
+
 ## Prerequisites
 Python 3.6 and OpenSSL: 
 ```
