@@ -1,3 +1,8 @@
+# SERVER
+# executable main (initiates the server_app) with parameters:
+# --certificate certificates/ssl_cert.pem --private-key certificates/ssl_key.pem
+#
+
 import argparse
 import asyncio
 import importlib
@@ -379,7 +384,7 @@ if __name__ == "__main__":
         "app",
         type=str,
         nargs="?",
-        default="demo:app",
+        default="server_app:app",
         help="the ASGI application as <module>:<attribute>",
     )
     parser.add_argument(

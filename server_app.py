@@ -21,6 +21,8 @@ QVIS_URL = "https://qvis.edm.uhasselt.be/"
 templates = Jinja2Templates(directory=os.path.join(ROOT, "templates"))
 app = Starlette()
 
+# list of all connections established over the runtime
+list_of_connections = []
 
 @app.websocket_route("/ws")
 async def ws(websocket):
@@ -33,14 +35,25 @@ async def ws(websocket):
         subprotocol = None
     await websocket.accept(subprotocol=subprotocol)
 
+    # add the newly established websocket/connection into the connection list
+    list_of_connections.append(websocket)
+
     try:
         while True:
             message = await websocket.receive_text()
-            await websocket.send_text(message)
+
+            for connection in list_of_connections:
+
+                # send acknowledgement upon receipt to the connection from which the message came
+                if connection == websocket:
+                    await connection.send_text("(ACK) server received message: " + message)
+
+                # forward the message to all the other connected clients
+                if connection != websocket:
+                    await connection.send_text(">" + message)
+
     except WebSocketDisconnect:
         pass
 
 
 app.mount("/httpbin", WsgiToAsgi(httpbin.app))
-
-app.mount("/", StaticFiles(directory=os.path.join(ROOT, "htdocs"), html=True))
