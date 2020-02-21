@@ -1,3 +1,8 @@
+# CLIENT
+# executable main with parameters:
+# --print-response --ca-certs certificates/pycacert.pem wss://localhost:4433/ws
+#
+
 import argparse
 import asyncio
 import json
@@ -9,6 +14,9 @@ import time
 from collections import deque
 from typing import Callable, Deque, Dict, List, Optional, Union, cast
 from urllib.parse import urlparse
+
+from threading import Thread
+from sys import stdin
 
 import wsproto
 import wsproto.events
@@ -278,7 +286,7 @@ def save_session_ticket(ticket):
         with open(args.session_ticket, "wb") as fp:
             pickle.dump(ticket, fp)
 
-
+# TODO: Remove redundant code und run-function. Url is always parsed with "wss".
 async def run(
     configuration: QuicConfiguration,
     url: str,
@@ -311,16 +319,34 @@ async def run(
         if parsed.scheme == "wss":
             ws = await client.websocket(url, subprotocols=["chat", "superchat"])
 
-            # send some messages and receive reply
-            for i in range(2):
-                message = "Hello {}, WebSocket!".format(i)
-                print("> " + message)
-                await ws.send(message)
+            print("Hint: Type your message and hit Enter to send!")
 
-                message = await ws.recv()
-                print("< " + message)
+            """
+            Asynchronic multi-threading is needed so that the 
+            client-app can listen to user input and the messages
+            coming from the server at the same time.
+            """
 
-            await ws.close()
+            async def read_user():
+                while True:
+
+                    message = stdin.readline()
+                    await ws.send(message)
+
+            def start_loop(loop):
+                asyncio.set_event_loop(loop)
+                loop.run_forever()
+
+            new_loop = asyncio.new_event_loop()
+            t = Thread(target=start_loop, args=(new_loop,))
+            t.start()
+
+            asyncio.run_coroutine_threadsafe(read_user(), new_loop)
+
+            while True:
+                messageRec = await ws.recv()
+                print(messageRec)
+
         else:
             # perform request
             coros = [
