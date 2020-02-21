@@ -34,9 +34,14 @@ $ python http3_client.py --print-response --ca-certs certificates/pycacert.pem w
 ```
 and finally running the second client (another copy of the client-app) with the same parameters. 
 
-The clients communicate with each through the terminal. 
+The clients communicate with each other through the terminal. 
 
 ## QUIC protocol in Wireshark
+You can inspect the data transferred through QUIC protocol for example by collecting the packages with tcpdump:
+```
+$ sudo tcpdump -i lo port 4433 -w quic.pcap
+```
+and viewing the packages collected in Wireshark: 
 
 ![](images/wireshark.png)
 
