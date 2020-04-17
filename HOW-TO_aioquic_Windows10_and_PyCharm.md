@@ -16,6 +16,14 @@ At the time of writing the pip install command will work in Linux, but not in Wi
 
 ![](images/install_aioquic_fail.png)
 
+### Update April 17 '20 - resolved in aioquic 0.8.7
+
+The in new **aioquic version 0.8.7** this issue no longer persists. Aioquic can be
+installed with pip command: 
+
+ ![](images/aioquic0.8.7_pip_install_success.PNG)
+
+
 ### Step One - Chocolatey
 Search for "Windows PowerShell" in Start, then run it as an administrator 
 (from the right-click context-menu). Then follow on the point 2. of the 
