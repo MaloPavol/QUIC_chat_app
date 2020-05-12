@@ -14,6 +14,9 @@ Die runtime of the app can be described with the following simplified sequence d
 
 <img src="images/sequence_diagram.png" width="460">
 
+## QUIC demo
+
+![](images/QUIC2.gif)
 
 ## Prerequisites
 Python 3.6 and OpenSSL: 
